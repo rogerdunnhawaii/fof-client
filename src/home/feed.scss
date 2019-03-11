@@ -3,10 +3,16 @@ $color-placeholder: #eee;
 
 .feed {
   background-color: $color-placeholder;
+  display: flex;
+  flex-direction: column;
   height: calc(calc(100vh) - 100px);
   overflow-y: scroll;
   padding: 20px;
   position: absolute;
   right: 0;
   width: 50vw;
+}
+
+.loading {
+  margin: auto;
 }

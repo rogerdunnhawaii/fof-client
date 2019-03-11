@@ -9,6 +9,8 @@ import SignIn from './auth/components/SignIn'
 import SignOut from './auth/components/SignOut'
 import ChangePassword from './auth/components/ChangePassword'
 import Feed from './home/feed'
+import { withRouter } from 'react-router'
+import PostForm from './forms/form'
 
 import Alert from 'react-bootstrap/Alert'
 
@@ -32,20 +34,26 @@ class App extends Component {
 
   render () {
     const { alerts, user } = this.state
+    console.log(this.props.location.pathname)
 
     return (
       <React.Fragment>
-        <Header user={user} />
-        {alerts.map((alert, index) => (
-          <Alert key={index} dismissible variant={alert.type}>
-            <Alert.Heading>
+        <Header user={user} isHome={this.props.location.pathname === '/'}/>
+        <div className='user-message'>
+          {alerts.map((alert, index) => (
+            <Alert className='alert-itself' key={index} dismissible variant={alert.type}>
               {alert.message}
-            </Alert.Heading>
-          </Alert>
-        ))}
+            </Alert>
+          ))}
+        </div>
         <main className="container">
           <Route exact path='/' render={() => (
             <Feed user={user} />
+            // <PostForm alert={this.alert} user={user} />
+          )} />
+
+          <AuthenticatedRoute user={user} path='/create-post' render={() => (
+            <PostForm alert={this.alert} user={user} />
           )} />
 
           <Route path='/sign-up' render={() => (
@@ -66,4 +74,4 @@ class App extends Component {
   }
 }
 
-export default App
+export default withRouter(App)

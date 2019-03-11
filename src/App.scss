@@ -46,3 +46,16 @@ $charcoal: #ccc;
     max-width: 200px;
   }
 }
+
+.user-message {
+  opacity: .8;
+  padding: 0;
+  position: fixed;
+  width: 100%;
+  z-index: 5;
+
+  .alert-itself {
+    margin: 5px auto;
+    width: 50%;
+  }
+}
