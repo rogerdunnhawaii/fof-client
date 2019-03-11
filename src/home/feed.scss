@@ -1,0 +1,12 @@
+
+$color-placeholder: #eee;
+
+.feed {
+  background-color: $color-placeholder;
+  height: calc(calc(100vh) - 100px);
+  overflow-y: scroll;
+  padding: 20px;
+  position: absolute;
+  right: 0;
+  width: 50vw;
+}
