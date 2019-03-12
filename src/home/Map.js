@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { getGeocode } from '../api'
 import './Map.scss'
 
 class Map extends Component {
@@ -6,11 +7,15 @@ class Map extends Component {
     super()
 
     this.state = {
+      positions: null
     }
   }
 
   componentDidMount () {
-    this.renderMap()
+    getGeocode()
+      .then(res => this.setState({ positions: res.data.results[0].geometry.location }))
+      .then(res => this.renderMap())
+      .catch(console.error)
   }
 
   renderMap = () => {
@@ -23,7 +28,11 @@ class Map extends Component {
       center: { lat: 42.3601, lng: -71.0589 },
       zoom: 8
     })
-    return map
+    const markers = new window.google.maps.Marker({
+      position: this.state.positions,
+      map: map
+    })
+    return markers
   }
 
   render () {

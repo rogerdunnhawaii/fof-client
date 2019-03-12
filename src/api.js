@@ -49,3 +49,15 @@ export const showPost = (user, id) => {
     }
   })
 }
+
+export const getGeocode = (address) => {
+  const location = '381 Dorchester St. Boston MA'
+  return axios.get('https://maps.googleapis.com/maps/api/geocode/json',
+    {
+      params: {
+        address: location,
+        key: 'AIzaSyBmRWdFdstCJl03UBNRzCJ9QKF5kV_R2CY'
+      }
+    })
+}
+// AIzaSyBmRWdFdstCJl03UBNRzCJ9QKF5kV_R2CY

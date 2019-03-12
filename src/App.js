@@ -12,7 +12,7 @@ import Feed from './home/Feed'
 import { withRouter } from 'react-router'
 import CreatePost from './create-edit/CreatePost'
 import EditPost from './create-edit/EditPost'
-// import Map from './home/Map'
+import Map from './home/Map'
 import { getAllPosts, destroyPost } from './api'
 import messages from './form-component/messages'
 
@@ -78,7 +78,7 @@ class App extends Component {
         <main className="container">
           <Route exact path='/' render={() => (
             <React.Fragment>
-              {/* <Map user={user} alert={this.alert} /> */}
+              <Map posts={posts} user={user} alert={this.alert} />
               <Feed user={user} posts={posts} handleDelete={handleDelete} alert={this.alert} />
             </React.Fragment>
           )} />
