@@ -1,16 +1,18 @@
 
 $color-placeholder: #eee;
+$post-bg-color: #afa;
 
 .feed {
   background-color: $color-placeholder;
   display: flex;
   flex-direction: column;
   height: calc(calc(100vh) - 100px);
+  max-width: 45vw;
+  min-width: 275px;
   overflow-y: scroll;
   padding: 20px;
   position: absolute;
   right: 0;
-  width: 50vw;
 }
 
 .loading {
@@ -18,11 +20,11 @@ $color-placeholder: #eee;
 }
 
 .post {
-  border: 1px solid white;
+  background-color: $post-bg-color;
+  border: 1px solid $color-placeholder;
   border-radius: 5px;
   margin: 10px;
   padding: 10px;
-  background-color: lightgreen;
 
   p {
     font-size: 14px;

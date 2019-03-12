@@ -12,6 +12,7 @@ import Feed from './home/Feed'
 import { withRouter } from 'react-router'
 import CreatePost from './create-edit/CreatePost'
 import EditPost from './create-edit/EditPost'
+import Map from './home/Map'
 
 import Alert from 'react-bootstrap/Alert'
 
@@ -52,8 +53,10 @@ class App extends Component {
         </div>
         <main className="container">
           <Route exact path='/' render={() => (
-            <Feed user={user} alert={this.alert} />
-            // <CreatePost alert={this.alert} user={user} />
+            <React.Fragment>
+              <Map user={user} alert={this.alert} />
+              <Feed user={user} alert={this.alert} />
+            </React.Fragment>
           )} />
 
           <AuthenticatedRoute user={user} path='/create-post' render={() => (
