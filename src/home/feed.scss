@@ -16,3 +16,24 @@ $color-placeholder: #eee;
 .loading {
   margin: auto;
 }
+
+.post {
+  border: 1px solid white;
+  border-radius: 5px;
+  margin: 10px;
+  padding: 10px;
+  background-color: lightgreen;
+
+  p {
+    font-size: 14px;
+    margin: 0;
+  }
+
+  .picture-link {
+    display: block;
+
+    &::before {
+      content: '->';
+    }
+  }
+}
