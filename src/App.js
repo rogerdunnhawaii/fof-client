@@ -12,7 +12,9 @@ import Feed from './home/Feed'
 import { withRouter } from 'react-router'
 import CreatePost from './create-edit/CreatePost'
 import EditPost from './create-edit/EditPost'
-import Map from './home/Map'
+// import Map from './home/Map'
+import { getAllPosts, destroyPost } from './api'
+import messages from './form-component/messages'
 
 import Alert from 'react-bootstrap/Alert'
 
@@ -22,7 +24,9 @@ class App extends Component {
 
     this.state = {
       user: null,
-      alerts: []
+      alerts: [],
+      posts: null,
+      deleted: false
     }
   }
 
@@ -34,9 +38,29 @@ class App extends Component {
     this.setState({ alerts: [...this.state.alerts, { message, type }] })
   }
 
+  componentDidMount () {
+    this.getFeed()
+  }
+
+  getFeed = () => {
+    getAllPosts()
+      .then(res => this.setState({ posts: res.data.posts.reverse() }))
+      .catch(console.error)
+  }
+
+  handleDelete = e => {
+    const id = e.target.id
+    destroyPost(id, this.state.user)
+      .then(() => { this.getFeed() })
+      .then(() => this.alert(messages.deleteSuccess, 'success'))
+      .catch(() => this.alert(messages.deleteFail, 'danger'))
+  }
+
   render () {
-    const { alerts, user } = this.state
+    const { alerts, user, posts } = this.state
+    const { handleDelete } = this
     const { location } = this.props
+
     return (
       <React.Fragment>
         <Header
@@ -54,8 +78,8 @@ class App extends Component {
         <main className="container">
           <Route exact path='/' render={() => (
             <React.Fragment>
-              <Map user={user} alert={this.alert} />
-              <Feed user={user} alert={this.alert} />
+              {/* <Map user={user} alert={this.alert} /> */}
+              <Feed user={user} posts={posts} handleDelete={handleDelete} alert={this.alert} />
             </React.Fragment>
           )} />
 

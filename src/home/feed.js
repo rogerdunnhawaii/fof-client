@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { getAllPosts, destroyPost } from '../api'
-import messages from '../form-component/messages'
 
 import './Feed.scss'
 
@@ -10,33 +8,11 @@ class Feed extends Component {
     super()
 
     this.state = {
-      posts: null,
-      deleted: false
     }
   }
 
-  componentWillMount () {
-    this.getFeed()
-  }
-
-  getFeed = () => {
-    getAllPosts()
-      .then(res => this.setState({ posts: res.data.posts.reverse() }))
-      .catch(console.error)
-  }
-
-  handleDelete = e => {
-    const id = e.target.id
-    destroyPost(id, this.props.user)
-      .then(() => { this.getFeed() })
-      .then(() => this.props.alert(messages.deleteSuccess, 'success'))
-      .catch(() => this.props.alert(messages.deleteFail, 'danger'))
-  }
-
   render () {
-    const { posts } = this.state
-    const { handleDelete } = this
-    const { user } = this.props
+    const { posts, handleDelete, user } = this.props
 
     if (!posts) {
       return (
