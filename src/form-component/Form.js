@@ -12,7 +12,6 @@ class PostForm extends Component {
 
   render () {
     const { handleChange, handleSubmit, post } = this.props
-    // console.log(this.state.post)
     return (
       <Form>
         <Form.Group controlId="title">

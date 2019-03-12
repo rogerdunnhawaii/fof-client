@@ -28,3 +28,24 @@ export const destroyPost = (id, user) => {
     }
   })
 }
+
+export const updatePost = (user, id, data) => {
+  return axios({
+    url: apiUrl + '/posts/' + id,
+    method: 'patch',
+    headers: {
+      Authorization: 'Token token=' + user.token
+    },
+    data: data
+  })
+}
+
+export const showPost = (user, id) => {
+  return axios({
+    url: apiUrl + '/posts/' + id,
+    method: 'get',
+    headers: {
+      Authorization: 'Token token=' + user.token
+    }
+  })
+}

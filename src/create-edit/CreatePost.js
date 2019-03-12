@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import PostForm from '../forms/Form'
+import PostForm from '../form-component/Form'
 import { Redirect } from 'react-router'
 import { createPost } from '../api'
-import messages from '../forms/messages'
+import messages from '../form-component/messages'
 
 class CreatePost extends Component {
   constructor () {

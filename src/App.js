@@ -10,7 +10,8 @@ import SignOut from './auth/components/SignOut'
 import ChangePassword from './auth/components/ChangePassword'
 import Feed from './home/Feed'
 import { withRouter } from 'react-router'
-import CreatePost from './create-post/CreatePost'
+import CreatePost from './create-edit/CreatePost'
+import EditPost from './create-edit/EditPost'
 
 import Alert from 'react-bootstrap/Alert'
 
@@ -57,6 +58,10 @@ class App extends Component {
 
           <AuthenticatedRoute user={user} path='/create-post' render={() => (
             <CreatePost alert={this.alert} user={user} />
+          )} />
+
+          <AuthenticatedRoute user={user} path='/posts/:id/edit' render={({ match, post }) => (
+            <EditPost match={match} post={post} alert={this.alert} user={user}/>
           )} />
 
           <Route path='/sign-up' render={() => (

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import { getAllPosts, destroyPost } from '../api'
-import messages from '../forms/messages'
+import messages from '../form-component/messages'
 
 import './Feed.scss'
 
@@ -57,7 +58,8 @@ class Feed extends Component {
               <a href={post['image_1']} target="_blank" rel="noopener noreferrer">See picture</a>
               {post['image_2'] && <a href={post['image_2']} target="_blank" rel="noopener noreferrer">See picture2</a>}
               {post['image_3'] && <a href={post['image_3']} target="_blank" rel="noopener noreferrer">See picture3</a>}
-              { user && <button onClick={handleDelete} id={post.id} >Delete Post</button> }
+              { user && <button onClick={handleDelete} id={post.id} >Delete</button> }
+              { user && <Link to={`/posts/${post.id}/edit`} post={post}><button>Edit</button></Link> }
             </div>
           )
         })}
