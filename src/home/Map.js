@@ -13,6 +13,8 @@ class Map extends Component {
 
   componentDidMount () {
     getGeocode()
+    // position gets set here
+    // hardcoded address should be changed in api.js
       .then(res => this.setState({ positions: res.data.results[0].geometry.location }))
       .then(res => this.renderMap())
       .catch(console.error)
