@@ -8,9 +8,9 @@ import SignUp from './auth/components/SignUp'
 import SignIn from './auth/components/SignIn'
 import SignOut from './auth/components/SignOut'
 import ChangePassword from './auth/components/ChangePassword'
-import Feed from './home/feed'
+import Feed from './home/Feed'
 import { withRouter } from 'react-router'
-import PostForm from './forms/form'
+import CreatePost from './create-post/CreatePost'
 
 import Alert from 'react-bootstrap/Alert'
 
@@ -34,11 +34,14 @@ class App extends Component {
 
   render () {
     const { alerts, user } = this.state
-    console.log(this.props.location.pathname)
-
+    const { location } = this.props
     return (
       <React.Fragment>
-        <Header user={user} isHome={this.props.location.pathname === '/'}/>
+        <Header
+          user={user}
+          isHome={location.pathname === '/'}
+          isNewPost={location.pathname !== '/create-post' && user}
+        />
         <div className='user-message'>
           {alerts.map((alert, index) => (
             <Alert className='alert-itself' key={index} dismissible variant={alert.type}>
@@ -49,11 +52,11 @@ class App extends Component {
         <main className="container">
           <Route exact path='/' render={() => (
             <Feed user={user} />
-            // <PostForm alert={this.alert} user={user} />
+            // <CreatePost alert={this.alert} user={user} />
           )} />
 
           <AuthenticatedRoute user={user} path='/create-post' render={() => (
-            <PostForm alert={this.alert} user={user} />
+            <CreatePost alert={this.alert} user={user} />
           )} />
 
           <Route path='/sign-up' render={() => (

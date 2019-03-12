@@ -7,3 +7,14 @@ export const getAllPosts = () => {
     method: 'get'
   })
 }
+
+export const createPost = (user, data) => {
+  return axios({
+    url: apiUrl + '/posts',
+    method: 'post',
+    headers: {
+      Authorization: 'Token token=' + user.token
+    },
+    data: data
+  })
+}

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { getAllPosts } from '../api'
 
-import './feed.scss'
+import './Feed.scss'
 
 class Feed extends Component {
   constructor () {
@@ -19,7 +19,7 @@ class Feed extends Component {
   getFeed = () => {
     getAllPosts()
     // TODO: add messaging
-      .then(res => this.setState({ posts: res.data.posts }))
+      .then(res => this.setState({ posts: res.data.posts.reverse() }))
       .catch(console.error)
   }
 

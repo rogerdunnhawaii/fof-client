@@ -8,7 +8,6 @@ const authenticatedOptions = (
     <Link to="/change-password">Change Password</Link>
     <Link to="/sign-out">Sign Out</Link>
     <Link to="/my-posts">My Posts</Link>
-    <Link to="/create-post">New Post</Link>
   </React.Fragment>
 )
 
@@ -25,13 +24,14 @@ const alwaysOptions = (
   </React.Fragment>
 )
 
-const Header = ({ user, isHome }) => (
+const Header = ({ user, isHome, isNewPost }) => (
   <header className="main-header">
     <h3>FOF | Boston</h3>
     <nav>
       { user && <span>Welcome, {user.email}</span>}
       { user ? authenticatedOptions : unauthenticatedOptions }
-      { isHome || <Link to="/">Home Page</Link>}
+      { isHome || <Link to="/">Home Page</Link> }
+      { isNewPost && <Link to="/create-post">New Post</Link> }
       { alwaysOptions }
     </nav>
   </header>
