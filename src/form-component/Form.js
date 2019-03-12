@@ -17,8 +17,8 @@ class PostForm extends Component {
         <Form.Group controlId="title">
           <Form.Label>Title</Form.Label>
           <Form.Control
-            type="text"
-            placeholder="A bowl of rice pilaf."
+            type='text'
+            placeholder='A bowl of rice pilaf.'
             onChange={handleChange}
             name='title'
             value={post.title}
@@ -40,7 +40,7 @@ class PostForm extends Component {
         <Form.Group controlId="address">
           <Form.Label>Address</Form.Label>
           <Form.Control
-            type="text"
+            type='text'
             placeholder="112 Johnson St. Broadway, Boston 02102 MA"
             onChange={handleChange}
             name='address'
@@ -52,7 +52,7 @@ class PostForm extends Component {
           <Form.Group as={Col} controlId="image_1">
             <Form.Label>Image 1</Form.Label>
             <Form.Control
-              type="text"
+              type='text'
               placeholder="https://address.com/your_img"
               onChange={handleChange}
               name='image_1'
@@ -63,7 +63,7 @@ class PostForm extends Component {
           <Form.Group as={Col} controlId="image_2">
             <Form.Label>Image 2</Form.Label>
             <Form.Control
-              type="text"
+              type='text'
               placeholder="https://address.com/your_img"
               onChange={handleChange}
               name='image_2'
@@ -74,7 +74,7 @@ class PostForm extends Component {
           <Form.Group as={Col} controlId="image_3">
             <Form.Label>Image 3</Form.Label>
             <Form.Control
-              type="text"
+              type='text'
               placeholder="https://address.com/your_img"
               onChange={handleChange}
               name='image_3'
