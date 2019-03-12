@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import PostForm from '../forms/Form'
+import { Redirect } from 'react-router'
 import { createPost } from '../api'
+import messages from '../forms/messages'
 
 class CreatePost extends Component {
   constructor () {
@@ -28,12 +30,18 @@ class CreatePost extends Component {
   handleSubmit = e => {
     e.preventDefault()
     createPost(this.props.user, this.state)
-      .then(console.log)
-      .catch(console.error)
+      .then(() => this.setState({ shouldRedirect: true }))
+      .then(() => this.props.alert(messages.createSuccess, 'success'))
+      .catch(() => this.props.alert(messages.createFail, 'danger'))
   }
 
   render () {
     const { handleChange, handleSubmit, state } = this
+
+    if (state.shouldRedirect) {
+      return <Redirect to='/' />
+    }
+
     return (
       <React.Fragment>
         <h1> Create a Post </h1>

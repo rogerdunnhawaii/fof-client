@@ -51,7 +51,7 @@ class App extends Component {
         </div>
         <main className="container">
           <Route exact path='/' render={() => (
-            <Feed user={user} />
+            <Feed user={user} alert={this.alert} />
             // <CreatePost alert={this.alert} user={user} />
           )} />
 

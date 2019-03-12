@@ -18,3 +18,13 @@ export const createPost = (user, data) => {
     data: data
   })
 }
+
+export const destroyPost = (id, user) => {
+  return axios({
+    url: apiUrl + '/posts/' + id,
+    method: 'delete',
+    headers: {
+      Authorization: 'Token token=' + user.token
+    }
+  })
+}
