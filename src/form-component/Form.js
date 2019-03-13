@@ -7,11 +7,13 @@ class PostForm extends Component {
   constructor () {
     super()
 
-    this.state = {}
+    this.state = {
+      activateSubmit: false
+    }
   }
 
   render () {
-    const { handleChange, handleSubmit, post } = this.props
+    const { handleChange, handleSubmit, post, showAddressOnMap } = this.props
     return (
       <Form>
         <Form.Group controlId="title">
@@ -46,6 +48,7 @@ class PostForm extends Component {
             name='address'
             value={post.address}
           />
+          <Button variant="outline-info" size="sm" type="submit" onClick={showAddressOnMap}>Show Address On Map</Button>
         </Form.Group>
 
         <Form.Row>
@@ -82,8 +85,11 @@ class PostForm extends Component {
             />
           </Form.Group>
         </Form.Row>
-
-        <Button variant="primary" type="submit" onClick={handleSubmit}>Submit</Button>
+        {this.props.activateSubmit
+          ? <Button variant="warning" type="submit" size="lg" onClick={handleSubmit} block>Submit</Button>
+          : <Button variant="warning" size="lg" block disabled>Submit</Button>
+        }
+        <p>Before submitting, address should be confirmed by clicking <em>Show Address On Map</em> button.</p>
       </Form>
     )
   }

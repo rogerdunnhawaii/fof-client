@@ -3,14 +3,20 @@ $color-placeholder: #eee;
 $map-bg-color: #aaf;
 
 .map {
-  // background-color: $map-bg-color;
-  // display: flex;
-  // flex-direction: column;
   height: calc(calc(100vh) - 100px);
   left: 0;
   max-width: 55vw;
-  width: calc(calc(100vw) - 275px);
   padding: 0;
   position: absolute;
+  width: calc(calc(100vw) - 275px);
   z-index: 999;
+}
+
+.map-create-post {
+  border-radius: 10px;
+  height: 30vw;
+  margin: 10px;
+  min-height: 300px;
+  min-width: 300px;
+  width: 100%;
 }
