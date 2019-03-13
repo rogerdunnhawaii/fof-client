@@ -62,6 +62,10 @@ class App extends Component {
     const { handleDelete, getFeed } = this
     const { location } = this.props
 
+    if (!posts) {
+      return <h3>Loading...</h3>
+    }
+
     return (
       <React.Fragment>
         <Header
@@ -79,7 +83,7 @@ class App extends Component {
         <main className="container">
           <Route exact path='/' render={() => (
             <React.Fragment>
-              <Map classType='map' posts={posts} user={user} alert={this.alert} />
+              <Map classType='map' renderFor='homepage' posts={posts} user={user} alert={this.alert} />
               <Feed user={user} posts={posts} handleDelete={handleDelete} alert={this.alert} />
               {/* <CreatePost alert={this.alert} user={user} /> */}
             </React.Fragment>

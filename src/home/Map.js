@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import { getGeocode } from '../api'
+// import { getGeocode } from '../api'
 import './Map.scss'
-import messages from '../form-component/messages'
+// import messages from '../form-component/messages'
 
 class Map extends Component {
   constructor (props) {
@@ -14,18 +14,22 @@ class Map extends Component {
     }
   }
 
+  pickAdresses = () => {
+    const locations = []
+    this.props.posts.map((post, index) => {
+      locations.push([post.title])
+      locations[index].push({ lat: +post.lat, lng: +post.lng })
+      locations[index].push(post.id)
+      locations[index].push(post.address)
+    })
+    this.setState({ markers: locations })
+  }
+
   componentDidMount () {
-    const address = this.state.addresses
-    if (address) {
-      getGeocode(address)
-      // position gets set here
-      // hardcoded address should be changed in api.js
-        .then(res => this.setState({ markers: res.data.results[0].geometry.location }))
-        .then(res => this.renderMap())
-        .catch(() => this.props.alert(messages.genericFail, 'danger'))
-    } else {
-      this.renderMap()
+    if (this.props.renderFor === 'homepage') {
+      this.pickAdresses()
     }
+    this.renderMap()
   }
 
   renderMap = () => {
@@ -36,40 +40,33 @@ class Map extends Component {
   initMap = () => {
     const map = new window.google.maps.Map(document.getElementById('map'), {
       center: this.props.latLng || { lat: 42.3601, lng: -71.0589 },
-      zoom: 13
+      zoom: 12
     })
-    const marker = new window.google.maps.Marker({
-      position: this.props.latLng || null,
-      map: map
-    })
-    return marker
-    // const infoWindow = new window.google.maps.InfoWindow({
-    //   content: '<h4>Hamburgerss</h4>'
-    // })
-    //
-    // marker.addListener('click', () => {
-    //   infoWindow.open(map, marker)
-    // })
-    // map.addListener('click', () => {
-    //   infoWindow.close(map, marker)
-    // })
+    if (this.props.latLng) {
+      const marker = new window.google.maps.Marker({
+        position: this.props.latLng || null,
+        map: map
+      })
+      return marker
+    } else if (this.state.markers) {
+      this.state.markers.forEach(mark => {
+        const marker = new window.google.maps.Marker({
+          position: mark[1],
+          map: map
+        })
+        // return marker
+        const infoWindow = new window.google.maps.InfoWindow({
+          // mark[0] is title of the post mark[3] is address of the post
+          // check the function at line 17 above
+          content: `<h4>${mark[0]}</h4><p>${mark[3]}</p>`
+        })
+
+        marker.addListener('click', () => {
+          infoWindow.open(map, marker)
+        })
+      })
+    }
   }
-
-  // fetch the addresses, save them to send to the api
-  // create array for marker infos (title, --lat, --lng)
-  // setLocations = () => {
-  //   const locations = []
-  //   const markerTitles = []
-  //   this.props.posts.forEach(post => {
-  //     locations.push(post.address)
-  //     markerTitles.push([post.title])
-  //   })
-  //   this.setState({ addresses: locations, markers: markerTitles })
-  // }
-
-  // unmountMap = () => {
-  //   ReactDOM.unmountComponentAtNode(document.getElementById('map'))
-  // }
 
   render () {
     return (
