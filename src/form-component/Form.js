@@ -20,7 +20,7 @@ class PostForm extends Component {
           <Form.Label>Title</Form.Label>
           <Form.Control
             type='text'
-            placeholder='A bowl of rice pilaf.'
+            placeholder='What extra food do you have?'
             onChange={handleChange}
             name='title'
             value={post.title}
@@ -32,7 +32,7 @@ class PostForm extends Component {
           <Form.Control
             as="textarea"
             rows="3"
-            placeholder="We are going to a vacation and I don't want to dump this rice pilaf. I will be home for the next 4 hours."
+            placeholder="Any other description? - We are going to a vacation and I don't want to dump this rice pilaf. I will be home for the next 4 hours."
             onChange={handleChange}
             name='body'
             value={post.body}
@@ -43,14 +43,14 @@ class PostForm extends Component {
           <Form.Label>Address</Form.Label>
           <Form.Control
             type='text'
-            placeholder="112 Johnson St. Broadway, Boston 02102 MA"
+            placeholder="Type your address - 112 Johnson St. Broadway, Boston"
             onChange={handleChange}
             name='address'
             value={post.address}
           />
-          <Button variant="outline-info" size="sm" type="submit" onClick={showAddressOnMap}>Show Address On Map</Button>
+          <Button variant="outline-info" size="sm" type="submit" onClick={showAddressOnMap}>Confirm Address On Map</Button>
         </Form.Group>
-
+        <p>Please add links of the images of your food.</p>
         <Form.Row>
           <Form.Group as={Col} controlId="image_1">
             <Form.Label>Image 1</Form.Label>
@@ -85,11 +85,11 @@ class PostForm extends Component {
             />
           </Form.Group>
         </Form.Row>
-        {this.props.activateSubmit
-          ? <Button variant="warning" type="submit" size="lg" onClick={handleSubmit} block>Submit</Button>
-          : <Button variant="warning" size="lg" block disabled>Submit</Button>
-        }
         <p>Before submitting, address should be confirmed by clicking <em>Show Address On Map</em> button.</p>
+        {this.props.activateSubmit
+          ? <Button variant="warning" type="submit" size="lg" onClick={handleSubmit} block>Confirm & Submit</Button>
+          : <Button variant="warning" size="lg" block disabled>Confirm & Submit</Button>
+        }
       </Form>
     )
   }

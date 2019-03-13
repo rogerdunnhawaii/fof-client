@@ -8,11 +8,11 @@ import SignUp from './auth/components/SignUp'
 import SignIn from './auth/components/SignIn'
 import SignOut from './auth/components/SignOut'
 import ChangePassword from './auth/components/ChangePassword'
-// import Feed from './home/Feed'
+import Feed from './home/Feed'
 import { withRouter } from 'react-router'
 import CreatePost from './create-edit/CreatePost'
 import EditPost from './create-edit/EditPost'
-// import Map from './home/Map'
+import Map from './home/Map'
 import { getAllPosts, destroyPost } from './api'
 import messages from './form-component/messages'
 
@@ -58,8 +58,8 @@ class App extends Component {
 
   render () {
     // posts
-    const { alerts, user } = this.state
-    // const { handleDelete } = this
+    const { alerts, user, posts } = this.state
+    const { handleDelete } = this
     const { location } = this.props
 
     return (
@@ -79,9 +79,9 @@ class App extends Component {
         <main className="container">
           <Route exact path='/' render={() => (
             <React.Fragment>
-              {/* <Map classType='map' posts={posts} user={user} alert={this.alert} />
-              <Feed user={user} posts={posts} handleDelete={handleDelete} alert={this.alert} /> */}
-              <CreatePost alert={this.alert} user={user} />
+              <Map classType='map' posts={posts} user={user} alert={this.alert} />
+              <Feed user={user} posts={posts} handleDelete={handleDelete} alert={this.alert} />
+              {/* <CreatePost alert={this.alert} user={user} /> */}
             </React.Fragment>
           )} />
 

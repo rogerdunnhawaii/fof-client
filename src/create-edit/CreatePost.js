@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+// import ReactDOM from 'react-dom'
 import PostForm from '../form-component/Form'
 import { Redirect } from 'react-router'
 import { createPost, getGeocode } from '../api'
@@ -11,26 +12,41 @@ class CreatePost extends Component {
 
     this.state = {
       post: {
-        title: '',
-        body: '',
-        address: '',
-        lat: '',
-        lng: '',
-        image_1: '',
-        image_2: '',
-        image_3: ''
-      }
+        data: {
+          title: '',
+          body: '',
+          address: '',
+          lat: '',
+          lng: '',
+          image_1: '',
+          image_2: '',
+          image_3: ''
+        }
+      },
+      latLng: null,
+      activateSubmit: false
     }
   }
 
   handleChange = e => {
     const changes = { [e.target.name]: e.target.value }
-    this.setState({ post: { ...this.state.post, ...changes } })
+    this.setState({
+      post: {
+        data: {
+          ...this.state.post.data, ...changes
+        }
+      }
+    })
+
+    if (e.target.name === 'address') {
+      this.setState({ latLng: null, activateSubmit: false })
+    }
   }
 
   handleSubmit = e => {
     e.preventDefault()
-    createPost(this.props.user, this.state)
+    console.log(this.props.user, this.state.post.data)
+    createPost(this.props.user, this.state.post.data)
       .then(() => this.setState({ shouldRedirect: true }))
       .then(() => this.props.alert(messages.createSuccess, 'success'))
       .catch(() => this.props.alert(messages.createFail, 'danger'))
@@ -38,11 +54,16 @@ class CreatePost extends Component {
 
   showAddressOnMap = e => {
     e.preventDefault()
-    getGeocode(this.state.post.address)
+    getGeocode(this.state.post.data.address)
       .then(res => {
         const latLng = res.data.results[0].geometry.location
-        console.log(latLng)
-        this.setState({ post: { ...this.state.post, ...latLng } })
+        this.setState({
+          post: {
+            data: {
+              ...this.state.post.data, ...latLng
+            }
+          }
+        })
         return latLng
       })
       .then(latLng => {
@@ -50,12 +71,16 @@ class CreatePost extends Component {
         this.setState({ activateSubmit: true })
       })
       // TODO: Add error message
-      .catch(console.error)
+      .catch(() => console.log('error on getting the geolocation'))
   }
+
+  // unmountMap () {
+  //   ReactDOM.unmountComponentAtNode(document.getElementById('map'))
+  //   this.setState({ mapMounted: false })
+  // }
 
   render () {
     const { handleChange, handleSubmit, state, showAddressOnMap } = this
-    // const { lat, lng } = this.state.post
 
     if (state.shouldRedirect) {
       return <Redirect to='/' />
@@ -64,8 +89,16 @@ class CreatePost extends Component {
     return (
       <React.Fragment>
         <h1> Create a Post </h1>
-        <PostForm activateSubmit={state.activateSubmit} post={state.post} showAddressOnMap={showAddressOnMap} handleChange={handleChange} handleSubmit={handleSubmit} user={this.props.user} alert={this.props.alert}/>
-        { state.latLng && <Map latLng={state.latLng} classType='map-create-post'/> }
+        <PostForm key='form'
+          activateSubmit={state.activateSubmit}
+          post={state.post.data}
+          showAddressOnMap={showAddressOnMap}
+          handleChange={handleChange}
+          handleSubmit={handleSubmit}
+          user={this.props.user}
+          alert={this.props.alert}
+        />
+        { state.latLng && <Map key='map' latLng={state.latLng} classType='map-create-post'/> }
       </React.Fragment>
     )
   }

@@ -13,10 +13,16 @@ $map-bg-color: #aaf;
 }
 
 .map-create-post {
+  background-color: $color-placeholder;
   border-radius: 10px;
+  display: flex;
   height: 30vw;
   margin: 10px;
   min-height: 300px;
   min-width: 300px;
   width: 100%;
+}
+
+.map-wrapper {
+  height: 100%;
 }
