@@ -45,7 +45,7 @@ class App extends Component {
   getFeed = () => {
     getAllPosts()
       .then(res => this.setState({ posts: res.data.posts.reverse() }))
-      .catch(console.error)
+      .catch(() => this.alert(messages.genericFail, 'danger'))
   }
 
   handleDelete = e => {

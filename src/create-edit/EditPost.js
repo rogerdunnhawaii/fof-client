@@ -26,7 +26,7 @@ class EditPost extends Component {
           post: res.data.post
         }
       }))
-      .catch(console.error)
+      .catch(() => this.props.alert(messages.genericFail, 'danger'))
   }
 
   handleChange = e => {

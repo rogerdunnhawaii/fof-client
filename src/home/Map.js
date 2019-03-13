@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { getGeocode } from '../api'
 import './Map.scss'
+import messages from '../form-component/messages'
 
 class Map extends Component {
   constructor (props) {
@@ -21,7 +22,7 @@ class Map extends Component {
       // hardcoded address should be changed in api.js
         .then(res => this.setState({ markers: res.data.results[0].geometry.location }))
         .then(res => this.renderMap())
-        .catch(console.error)
+        .catch(() => this.props.alert(messages.genericFail, 'danger'))
     } else {
       this.renderMap()
     }
