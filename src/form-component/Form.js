@@ -85,7 +85,7 @@ class PostForm extends Component {
             />
           </Form.Group>
         </Form.Row>
-        <p>Before submitting, address should be confirmed by clicking <em>Show Address On Map</em> button.</p>
+        <p><strong>IMPORTANT: </strong>Before submitting, address should be confirmed by clicking <em>Show Address On Map</em> button.</p>
         {this.props.activateSubmit
           ? <Button variant="warning" type="submit" size="lg" onClick={handleSubmit} block>Confirm & Submit</Button>
           : <Button variant="warning" size="lg" block disabled>Confirm & Submit</Button>

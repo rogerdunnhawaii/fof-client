@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { getGeocode } from '../api'
 import './Map.scss'
-// import ReactDOM from 'react-dom'
 
 class Map extends Component {
   constructor (props) {

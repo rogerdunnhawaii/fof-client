@@ -7,12 +7,12 @@ $post-bg-color: #afa;
   display: flex;
   flex-direction: column;
   height: calc(calc(100vh) - 100px);
-  max-width: 45vw;
   min-width: 275px;
   overflow-y: scroll;
   padding: 20px;
   position: absolute;
   right: 0;
+  width: 45vw;
 }
 
 .loading {

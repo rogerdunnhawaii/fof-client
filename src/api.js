@@ -9,6 +9,7 @@ export const getAllPosts = () => {
 }
 
 export const createPost = (user, data) => {
+  console.log(user.token, 'data is: ', data)
   return axios({
     url: apiUrl + '/posts',
     method: 'post',

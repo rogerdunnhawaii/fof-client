@@ -11,8 +11,8 @@ class CreatePost extends Component {
     super()
 
     this.state = {
-      post: {
-        data: {
+      data: {
+        post: {
           title: '',
           body: '',
           address: '',
@@ -24,16 +24,17 @@ class CreatePost extends Component {
         }
       },
       latLng: null,
-      activateSubmit: false
+      activateSubmit: false,
+      shouldRedirect: false
     }
   }
 
   handleChange = e => {
     const changes = { [e.target.name]: e.target.value }
     this.setState({
-      post: {
-        data: {
-          ...this.state.post.data, ...changes
+      data: {
+        post: {
+          ...this.state.data.post, ...changes
         }
       }
     })
@@ -45,22 +46,24 @@ class CreatePost extends Component {
 
   handleSubmit = e => {
     e.preventDefault()
-    console.log(this.props.user, this.state.post.data)
-    createPost(this.props.user, this.state.post.data)
-      .then(() => this.setState({ shouldRedirect: true }))
+    createPost(this.props.user, this.state.data)
+      .then(() => this.props.getFeed())
+      .then(() => {
+        this.setState({ shouldRedirect: true })
+      })
       .then(() => this.props.alert(messages.createSuccess, 'success'))
       .catch(() => this.props.alert(messages.createFail, 'danger'))
   }
 
   showAddressOnMap = e => {
     e.preventDefault()
-    getGeocode(this.state.post.data.address)
+    getGeocode(this.state.data.post.address)
       .then(res => {
         const latLng = res.data.results[0].geometry.location
         this.setState({
-          post: {
-            data: {
-              ...this.state.post.data, ...latLng
+          data: {
+            post: {
+              ...this.state.data.post, ...latLng
             }
           }
         })
@@ -71,13 +74,8 @@ class CreatePost extends Component {
         this.setState({ activateSubmit: true })
       })
       // TODO: Add error message
-      .catch(() => console.log('error on getting the geolocation'))
+      .catch(() => messages.createFail, 'danger')
   }
-
-  // unmountMap () {
-  //   ReactDOM.unmountComponentAtNode(document.getElementById('map'))
-  //   this.setState({ mapMounted: false })
-  // }
 
   render () {
     const { handleChange, handleSubmit, state, showAddressOnMap } = this
@@ -91,7 +89,7 @@ class CreatePost extends Component {
         <h1> Create a Post </h1>
         <PostForm key='form'
           activateSubmit={state.activateSubmit}
-          post={state.post.data}
+          post={state.data.post}
           showAddressOnMap={showAddressOnMap}
           handleChange={handleChange}
           handleSubmit={handleSubmit}

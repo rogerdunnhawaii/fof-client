@@ -59,7 +59,7 @@ class App extends Component {
   render () {
     // posts
     const { alerts, user, posts } = this.state
-    const { handleDelete } = this
+    const { handleDelete, getFeed } = this
     const { location } = this.props
 
     return (
@@ -85,12 +85,12 @@ class App extends Component {
             </React.Fragment>
           )} />
 
-          <AuthenticatedRoute user={user} path='/create-post' render={() => (
-            <CreatePost alert={this.alert} user={user} />
+          <AuthenticatedRoute user={user} exact path='/create-post' render={() => (
+            <CreatePost getFeed={getFeed} alert={this.alert} user={user} />
           )} />
 
           <AuthenticatedRoute user={user} path='/posts/:id/edit' render={({ match, post }) => (
-            <EditPost match={match} post={post} alert={this.alert} user={user}/>
+            <EditPost getFeed={getFeed} match={match} post={post} alert={this.alert} user={user}/>
           )} />
 
           <Route path='/sign-up' render={() => (
