@@ -5,10 +5,10 @@ $map-bg-color: #aaf;
 .map {
   height: calc(calc(100vh) - 100px);
   left: 0;
-  max-width: 55vw;
+  // max-width: 55vw;
   padding: 0;
   position: absolute;
-  width: calc(calc(100vw) - 275px);
+  width: 100vw;
   z-index: 9;
 }
 

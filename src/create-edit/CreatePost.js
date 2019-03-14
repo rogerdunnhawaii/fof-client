@@ -25,7 +25,8 @@ class CreatePost extends Component {
       },
       latLng: null,
       activateSubmit: false,
-      shouldRedirect: false
+      shouldRedirect: false,
+      isUpdated: false
     }
   }
 
@@ -47,10 +48,8 @@ class CreatePost extends Component {
   handleSubmit = e => {
     e.preventDefault()
     createPost(this.props.user, this.state.data)
-      .then(() => this.props.getFeed())
-      .then(() => {
-        this.setState({ shouldRedirect: true })
-      })
+      .then(() => { this.props.getFeed() })
+      .then(() => { this.setState({ shouldRedirect: true, isUpdated: true }) })
       .then(() => this.props.alert(messages.createSuccess, 'success'))
       .catch(() => this.props.alert(messages.createFail, 'danger'))
   }
@@ -96,7 +95,7 @@ class CreatePost extends Component {
           user={this.props.user}
           alert={this.props.alert}
         />
-        { state.latLng && <Map key='map' latLng={state.latLng} classType='map-create-post'/> }
+        { state.latLng && <Map key='map' isUpdated={state.isUpdated} latLng={state.latLng} classType='map-create-post'/> }
       </React.Fragment>
     )
   }

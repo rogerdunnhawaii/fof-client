@@ -1,5 +1,5 @@
 
-$color-placeholder: #eee;
+$color-placeholder: #0008;
 $post-bg-color: #afa;
 
 .feed {
@@ -13,6 +13,27 @@ $post-bg-color: #afa;
   position: absolute;
   right: 0;
   width: 45vw;
+  z-index: 10;
+
+  h3 {
+    color: #eee;
+  }
+
+  a {
+    color: #5FF;
+    margin: 5px;
+  }
+}
+
+.close-posts {
+  height: 80px;
+  width: 80px;
+  border-radius: 100%;
+  background-color: #eee;
+  z-index: 11;
+  position: absolute;
+  top: calc(calc(100vh) / 2);
+  right: -40px;
 }
 
 .loading {
@@ -20,14 +41,15 @@ $post-bg-color: #afa;
 }
 
 .post {
-  background-color: $post-bg-color;
+  background-color: $color-placeholder;
   border: 1px solid $color-placeholder;
   border-radius: 5px;
   margin: 10px;
   padding: 10px;
+  color: #eee;
 
   p {
-    font-size: 14px;
+    font-size: 16px;
     margin: 0;
   }
 
