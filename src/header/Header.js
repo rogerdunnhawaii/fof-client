@@ -27,7 +27,7 @@ const Header = ({ user, isHome, isNewPost, isMyPost }) => (
   <header className="main-header">
     <h3>FOF | Boston</h3>
     <nav>
-      { user && <span>Welcome, {user.email}</span>}
+      { user && <span>Welcome, {user.email} | Your ID:{user.id}</span>}
       { user ? authenticatedOptions : unauthenticatedOptions }
       { isHome || <Link to="/">Home Page</Link> }
       { isNewPost && <Link to="/create-post">New Post</Link> }

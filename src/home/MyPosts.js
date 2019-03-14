@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Feed from './Feed'
+import Feed from './feed'
 import { destroyPost } from '../api'
 import messages from '../form-component/messages'
 // import { Redirect } from 'react-router'

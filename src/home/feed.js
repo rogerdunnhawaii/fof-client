@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 
-import './Feed.scss'
+import './feed.scss'
 
 class Feed extends Component {
   constructor (props) {
