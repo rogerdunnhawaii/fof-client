@@ -78,6 +78,7 @@ class App extends Component {
           isHome={location.pathname === '/'}
           isNewPost={location.pathname !== '/create-post' && user}
           isMyPost={location.pathname !== '/my-posts' && user}
+          showInstruction={!user && location.pathname === '/'}
         />
         <div className='user-message'>
           {alerts.map((alert, index) => (

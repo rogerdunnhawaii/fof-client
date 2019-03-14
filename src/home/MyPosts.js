@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Feed from './feed'
 import { destroyPost } from '../api'
 import messages from '../form-component/messages'
-// import { Redirect } from 'react-router'
+import './MyPosts.scss'
 
 class MyPosts extends Component {
   constructor () {
@@ -40,8 +40,10 @@ class MyPosts extends Component {
 
     return (
       <React.Fragment>
-        <h3>My Posts</h3>
-        <Feed classType='user-posts' posts={this.state.posts} handleDelete={this.handleDelete} user={this.props.user}/>
+        <br/>
+        <h3>Your posts on the list:</h3>
+        <Feed hideBtn={true} classType='user-posts' posts={this.state.posts} handleDelete={this.handleDelete} user={this.props.user}/>
+        { this.state.posts.length === 0 && <p>You do not have any post yet.</p>}
       </React.Fragment>
     )
   }

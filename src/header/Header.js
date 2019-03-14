@@ -23,11 +23,12 @@ const unauthenticatedOptions = (
 //   </React.Fragment>
 // )
 
-const Header = ({ user, isHome, isNewPost, isMyPost }) => (
+const Header = ({ user, isHome, isNewPost, isMyPost, showInstruction }) => (
   <header className="main-header">
-    <h3>FOF | Boston</h3>
+    <h3 className='logo'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;F.O.F. | Boston</h3>
+    {showInstruction && <p className='instructions'>This is an app to help people find free food. <br/> So, create a post for your extra food. Somebody will appreciate it.<br/>Thanks!</p>}
     <nav>
-      { user && <span>Welcome, {user.email} | Your ID:{user.id}</span>}
+      { user && <span className='greeting'>Welcome! ID:{user.id}</span>}
       { user ? authenticatedOptions : unauthenticatedOptions }
       { isHome || <Link to="/">Home Page</Link> }
       { isNewPost && <Link to="/create-post">New Post</Link> }

@@ -4,6 +4,7 @@ import { Redirect } from 'react-router'
 import { updatePost, showPost, getGeocode } from '../api'
 import Map from '../home/Map'
 import messages from '../form-component/messages'
+import './create-edit.scss'
 
 class EditPost extends Component {
   constructor () {
@@ -111,7 +112,7 @@ class EditPost extends Component {
     }
 
     return (
-      <React.Fragment>
+      <div className='form-style'>
         <h1> Edit & Update This Post </h1>
         <PostForm key='form'
           activateSubmit={state.activateSubmit}
@@ -123,7 +124,7 @@ class EditPost extends Component {
           alert={this.props.alert}
         />
         { state.latLng && <Map key='map' isMapUpdated={false} latLng={state.latLng} classType='map-create-post'/>}
-      </React.Fragment>
+      </div>
     )
   }
 }
