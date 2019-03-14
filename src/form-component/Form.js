@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
-import Col from 'react-bootstrap/Col'
+import { Link } from 'react-router-dom'
+// import Col from 'react-bootstrap/Col'
 
 class PostForm extends Component {
   constructor () {
@@ -50,7 +51,7 @@ class PostForm extends Component {
           />
           <Button variant="outline-info" size="sm" type="submit" onClick={showAddressOnMap}>Confirm Address On Map</Button>
         </Form.Group>
-        <p>Please add links of the images of your food.</p>
+        {/* <p>Please add links of the images of your food.</p>
         <Form.Row>
           <Form.Group as={Col} controlId="image_1">
             <Form.Label>Image 1</Form.Label>
@@ -84,12 +85,15 @@ class PostForm extends Component {
               value={post.image_3}
             />
           </Form.Group>
-        </Form.Row>
+        </Form.Row> */}
         <p><strong>IMPORTANT: </strong>Before submitting, address should be confirmed by clicking <em>Show Address On Map</em> button.</p>
         {this.props.activateSubmit
           ? <Button variant="warning" type="submit" size="lg" onClick={handleSubmit} block>Confirm & Submit</Button>
           : <Button variant="warning" size="lg" block disabled>Confirm & Submit</Button>
         }
+        <Link className='cancel-btn' to="/">
+          <Button variant="danger" type="submit" size="lg" block>Cancel & Go Back to Homepage</Button>
+        </Link>
       </Form>
     )
   }

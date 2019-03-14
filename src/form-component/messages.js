@@ -5,5 +5,8 @@ export default {
   deleteFail: 'An error occured. Your post was NOT deleted. Try again.',
   editSuccess: 'Your post has been updated successfully.',
   editFail: 'An error occured. Your post was NOT updated. Try again.',
-  genericFail: 'Error! Please check you internet connection and try again.'
+  genericFail: 'Error! Please check you internet connection and try again.',
+  badAddress: 'The address you have entered is not valid or doesn\'t exist in Boston. Please provide a valid address.',
+  checkTheMap: 'Please check your address on the below map. If it is not correct, change your address.',
+  noTitle: 'Please write a meaningful title'
 }

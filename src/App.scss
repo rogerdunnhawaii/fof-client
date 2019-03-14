@@ -48,14 +48,13 @@ $charcoal: #ccc;
 }
 
 .user-message {
-  opacity: .8;
   padding: 0;
   position: fixed;
   width: 100%;
   z-index: 99;
 
   .alert-itself {
-    margin: 5px auto;
+    margin: 5px;
     width: 50%;
   }
 }

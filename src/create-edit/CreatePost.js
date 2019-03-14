@@ -25,8 +25,7 @@ class CreatePost extends Component {
       },
       latLng: null,
       activateSubmit: false,
-      shouldRedirect: false,
-      isUpdated: false
+      shouldRedirect: false
     }
   }
 
@@ -47,16 +46,38 @@ class CreatePost extends Component {
 
   handleSubmit = e => {
     e.preventDefault()
+    const { title } = this.state.data.post
+    if (title === '' || title.length < 10) {
+      this.setState({ data: { post: { ...this.state.data.post, title: '' } } })
+      return this.props.alert(messages.noTitle, 'warning')
+    }
     createPost(this.props.user, this.state.data)
       .then(() => { this.props.getFeed() })
       .then(() => { this.setState({ shouldRedirect: true, isUpdated: true }) })
       .then(() => this.props.alert(messages.createSuccess, 'success'))
-      .catch(() => this.props.alert(messages.createFail, 'danger'))
+      .catch(() => {
+        this.props.alert(messages.createFail, 'danger')
+        this.setState({ data: { post: { ...this.state.data.post,
+          title: '',
+          body: '',
+          address: '',
+          image_1: '',
+          image_2: '',
+          image_3: ''
+        } } })
+      })
   }
 
   showAddressOnMap = e => {
     e.preventDefault()
     getGeocode(this.state.data.post.address)
+      .then(res => {
+        if (res.data.status === 'ZERO_RESULTS') {
+          this.props.alert(messages.badAddress, 'warning')
+        } else {
+          return res
+        }
+      })
       .then(res => {
         const latLng = res.data.results[0].geometry.location
         this.setState({
@@ -68,12 +89,16 @@ class CreatePost extends Component {
         })
         return latLng
       })
-      .then(latLng => {
-        this.setState({ latLng: latLng })
+      .then(reslatLng => {
+        this.setState({ latLng: reslatLng })
         this.setState({ activateSubmit: true })
+        this.props.alert(messages.checkTheMap, 'success')
       })
       // TODO: Add error message
-      .catch(() => messages.createFail, 'danger')
+      .catch(() => {
+        this.props.alert(messages.createFail, 'danger')
+        this.setState({ data: { post: { ...this.state.data.post, address: '' } } })
+      })
   }
 
   render () {
@@ -95,7 +120,7 @@ class CreatePost extends Component {
           user={this.props.user}
           alert={this.props.alert}
         />
-        { state.latLng && <Map key='map' isUpdated={state.isUpdated} latLng={state.latLng} classType='map-create-post'/> }
+        { state.latLng && <Map key='map' isMapUpdated={false} latLng={state.latLng} classType='map-create-post'/> }
       </React.Fragment>
     )
   }

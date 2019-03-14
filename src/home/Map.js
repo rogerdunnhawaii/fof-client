@@ -32,12 +32,12 @@ class Map extends Component {
     this.renderMap()
   }
   // TODO: It doesnt update after create or edit, after redirect
-  // UNSAFE_componentWillUpdate () {
-  //   if (this.props.isUpdated && this.props.renderFor === 'homepage') {
-  //     this.pickAdresses()
-  //   }
-  //   this.renderMap()
-  // }
+  componentDidUpdate (prevProps) {
+    if (this.props.posts && this.props.posts.length !== prevProps.posts.length) {
+      this.pickAdresses()
+      this.renderMap()
+    }
+  }
 
   renderMap = () => {
     window.initMap = this.initMap

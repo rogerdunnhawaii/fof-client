@@ -15,6 +15,7 @@ import EditPost from './create-edit/EditPost'
 import Map from './home/Map'
 import { getAllPosts, destroyPost } from './api'
 import messages from './form-component/messages'
+import MyPosts from './home/MyPosts'
 
 import Alert from 'react-bootstrap/Alert'
 
@@ -26,7 +27,8 @@ class App extends Component {
       user: null,
       alerts: [],
       posts: null,
-      deleted: false
+      deleted: false,
+      isMapUpdated: false
     }
   }
 
@@ -45,6 +47,9 @@ class App extends Component {
   getFeed = () => {
     getAllPosts()
       .then(res => this.setState({ posts: res.data.posts.reverse() }))
+      .then(() => {
+        this.setState({ isMapUpdated: true })
+      })
       .catch(() => this.alert(messages.genericFail, 'danger'))
   }
 
@@ -72,6 +77,7 @@ class App extends Component {
           user={user}
           isHome={location.pathname === '/'}
           isNewPost={location.pathname !== '/create-post' && user}
+          isMyPost={location.pathname !== '/my-posts' && user}
         />
         <div className='user-message'>
           {alerts.map((alert, index) => (
@@ -83,8 +89,8 @@ class App extends Component {
         <main className="container">
           <Route exact path='/' render={() => (
             <React.Fragment>
-              <Map classType='map' renderFor='homepage' posts={posts} user={user} alert={this.alert} />
-              <Feed user={user} posts={posts} handleDelete={handleDelete} alert={this.alert} />
+              <Map classType='map' isMapUpdated={this.state.isMapUpdated} renderFor='homepage' posts={posts} user={user} alert={this.alert} />
+              <Feed classType='feed' user={user} posts={posts} handleDelete={handleDelete} alert={this.alert} />
               {/* <CreatePost alert={this.alert} user={user} /> */}
             </React.Fragment>
           )} />
@@ -95,6 +101,10 @@ class App extends Component {
 
           <AuthenticatedRoute user={user} path='/posts/:id/edit' render={({ match, post }) => (
             <EditPost getFeed={getFeed} match={match} post={post} alert={this.alert} user={user}/>
+          )} />
+
+          <AuthenticatedRoute user={user} path='/my-posts' render={() => (
+            <MyPosts getFeed={getFeed} posts={posts} alert={this.alert} user={user}/>
           )} />
 
           <Route path='/sign-up' render={() => (
