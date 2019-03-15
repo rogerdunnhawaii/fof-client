@@ -1,6 +1,6 @@
-# F.O.F. | Boston
-## Free Offerings of Food
-##### Web Application created by M. Ege ERCAN
+## F.O.F. | Boston (Free Offerings of Food)
+##### A web application created by M. Ege ERCAN for General Assembly Boston's Web Development Immersive Bootcamp Program's capstone project
+---
 
 F.O.F. | Boston , stands for Free Offerings of Food, is an application where people can create posts for their extra food that they dont want to throw away. So that, people who helps homeless people can find free food, collect them and give them to whoever in need. This application uses Google Maps API and Google Geocoding API to locate user's address
 on the map.
