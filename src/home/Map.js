@@ -80,7 +80,6 @@ class Map extends Component {
   }
 
   render () {
-    console.log('map is rendered')
     return (
       <div id='map' className={this.props.classType}></div>
     )

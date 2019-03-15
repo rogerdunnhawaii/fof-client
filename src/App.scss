@@ -58,11 +58,11 @@ body {
 .user-message {
   padding: 0;
   position: fixed;
-  width: 100%;
+  width: 45%;
   z-index: 99;
 
   .alert-itself {
-    margin: 25px;
-    width: 50%;
+    margin: 5px;
+    // width: 50%;
   }
 }

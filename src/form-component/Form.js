@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import { Link } from 'react-router-dom'
+import messages from './messages'
 // import Col from 'react-bootstrap/Col'
 
 class PostForm extends Component {
@@ -11,6 +12,10 @@ class PostForm extends Component {
     this.state = {
       activateSubmit: false
     }
+  }
+
+  warnUser = () => {
+    this.props.alert(messages.disabledButton, 'warning')
   }
 
   render () {
@@ -89,7 +94,7 @@ class PostForm extends Component {
         <p><strong>IMPORTANT: </strong>Before submitting, address should be confirmed by clicking <em>Show Address On Map</em> button.</p>
         {this.props.activateSubmit
           ? <Button variant="warning" type="submit" size="lg" onClick={handleSubmit} block>Confirm & Submit</Button>
-          : <Button variant="warning" size="lg" block disabled>Confirm & Submit</Button>
+          : <Button variant="warning" size="lg" block onClick={this.warnUser}>Confirm & Submit</Button>
         }
         <Link className='cancel-btn' to="/">
           <Button variant="danger" type="submit" size="lg" block>Cancel & Go Back to Homepage</Button>

@@ -134,4 +134,14 @@ class App extends Component {
   }
 }
 
+// function loadScript () {
+//   const index = window.document.getElementsByTagName('script')[0]
+//   const newScript = window.document.createElement('script')
+//   newScript.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCiPH1VDIHhTQty2EfAUBMDXBKOagM6umo&callback=initMap'
+//   newScript.async = true
+//   newScript.defer = true
+//   newScript.id = 'map-script-tag'
+//   index.parentNode.insertBefore(newScript, index)
+// }
+
 export default withRouter(App)
