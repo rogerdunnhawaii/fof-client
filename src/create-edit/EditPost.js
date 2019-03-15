@@ -51,7 +51,13 @@ class EditPost extends Component {
     const { match, user } = this.props
     const { title } = this.state.data.post
     if (title === '' || title.length < 10) {
-      this.setState({ data: { post: { ...this.state.data.post, title: '' } } })
+      this.setState({ data: { post: { ...this.state.data.post,
+        title: '',
+        body: '',
+        image_1: '',
+        image_2: '',
+        image_3: ''
+      } } })
       return this.props.alert(messages.noTitle, 'warning')
     }
     updatePost(user, match.params.id, this.state.data)
@@ -76,7 +82,15 @@ class EditPost extends Component {
     getGeocode(this.state.data.post.address)
       .then(res => {
         if (res.data.status === 'ZERO_RESULTS') {
-          this.props.alert(messages.badAddress, 'warning')
+          this.setState({ data: { post: { ...this.state.data.post,
+            title: '',
+            body: '',
+            address: '',
+            image_1: '',
+            image_2: '',
+            image_3: ''
+          } } })
+          return this.props.alert(messages.badAddress, 'warning')
         } else {
           return res
         }
@@ -98,7 +112,17 @@ class EditPost extends Component {
         this.props.alert(messages.checkTheMap, 'success')
       })
       // TODO: Add error message
-      .catch(() => this.props.alert(messages.editFail, 'danger'))
+      .catch(() => {
+        this.setState({ data: { post: { ...this.state.data.post,
+          title: '',
+          body: '',
+          address: '',
+          image_1: '',
+          image_2: '',
+          image_3: ''
+        } } })
+        this.props.alert(messages.editFail, 'danger')
+      })
   }
 
   render () {

@@ -49,7 +49,13 @@ class CreatePost extends Component {
     e.preventDefault()
     const { title } = this.state.data.post
     if (title === '' || title.length < 10) {
-      this.setState({ data: { post: { ...this.state.data.post, title: '' } } })
+      this.setState({ data: { post: { ...this.state.data.post,
+        title: '',
+        body: '',
+        image_1: '',
+        image_2: '',
+        image_3: ''
+      } } })
       return this.props.alert(messages.noTitle, 'warning')
     }
     createPost(this.props.user, this.state.data)
@@ -74,7 +80,15 @@ class CreatePost extends Component {
     getGeocode(this.state.data.post.address)
       .then(res => {
         if (res.data.status === 'ZERO_RESULTS') {
-          this.props.alert(messages.badAddress, 'warning')
+          this.setState({ data: { post: { ...this.state.data.post,
+            title: '',
+            body: '',
+            address: '',
+            image_1: '',
+            image_2: '',
+            image_3: ''
+          } } })
+          return this.props.alert(messages.badAddress, 'warning')
         } else {
           return res
         }
@@ -98,7 +112,14 @@ class CreatePost extends Component {
       // TODO: Add error message
       .catch(() => {
         this.props.alert(messages.createFail, 'danger')
-        this.setState({ data: { post: { ...this.state.data.post, address: '' } } })
+        this.setState({ data: { post: { ...this.state.data.post,
+          title: '',
+          body: '',
+          address: '',
+          image_1: '',
+          image_2: '',
+          image_3: ''
+        } } })
       })
   }
 
