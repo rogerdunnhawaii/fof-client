@@ -16,7 +16,8 @@ class EditPost extends Component {
       },
       latLng: null,
       activateSubmit: false,
-      shouldRedirect: false
+      shouldRedirect: false,
+      isUpdated: false
     }
   }
 
@@ -54,8 +55,8 @@ class EditPost extends Component {
       return this.props.alert(messages.noTitle, 'warning')
     }
     updatePost(user, match.params.id, this.state.data)
-      .then(() => this.props.getFeed())
-      .then(() => this.setState({ shouldRedirect: true }))
+      .then(() => { this.props.getFeed(true) })
+      .then(() => { this.setState({ shouldRedirect: true, isUpdated: true }) })
       .then(() => this.props.alert(messages.editSuccess, 'success'))
       .catch(() => {
         this.props.alert(messages.editFail, 'danger')

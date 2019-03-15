@@ -28,7 +28,8 @@ class App extends Component {
       alerts: [],
       posts: null,
       deleted: false,
-      isMapUpdated: false
+      isMapUpdated: false,
+      isAnyPostEdited: false
     }
   }
 
@@ -44,10 +45,13 @@ class App extends Component {
     this.getFeed()
   }
 
-  getFeed = () => {
+  getFeed = (isEdited) => {
     getAllPosts()
       .then(res => this.setState({ posts: res.data.posts.reverse() }))
       .then(() => {
+        if (isEdited) {
+          this.setState({ isAnyPostEdited: true })
+        }
         this.setState({ isMapUpdated: true })
       })
       .catch(() => this.alert(messages.genericFail, 'danger'))
@@ -61,9 +65,13 @@ class App extends Component {
       .catch(() => this.alert(messages.deleteFail, 'danger'))
   }
 
+  makeEditStateDefault = () => {
+    this.setState({ isAnyPostEdited: false })
+  }
+
   render () {
     // posts
-    const { alerts, user, posts } = this.state
+    const { alerts, user, posts, isAnyPostEdited } = this.state
     const { handleDelete, getFeed } = this
     const { location } = this.props
 
@@ -90,7 +98,7 @@ class App extends Component {
         <main className="container">
           <Route exact path='/' render={() => (
             <React.Fragment>
-              <Map classType='map' isMapUpdated={this.state.isMapUpdated} renderFor='homepage' posts={posts} user={user} alert={this.alert} />
+              <Map classType='map' makeEditStateDefault={this.makeEditStateDefault} isAnyPostEdited={isAnyPostEdited} isMapUpdated={this.state.isMapUpdated} renderFor='homepage' posts={posts} user={user} alert={this.alert} />
               <Feed classType='feed' user={user} posts={posts} handleDelete={handleDelete} alert={this.alert} />
               {/* <CreatePost alert={this.alert} user={user} /> */}
             </React.Fragment>

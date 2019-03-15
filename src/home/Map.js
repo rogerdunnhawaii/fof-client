@@ -36,6 +36,10 @@ class Map extends Component {
     if (this.props.posts && this.props.posts.length !== prevProps.posts.length) {
       this.pickAdresses()
       this.renderMap()
+    } else if (this.props.isAnyPostEdited !== prevProps.isAnyPostEdited) {
+      this.pickAdresses()
+      this.renderMap()
+      this.props.makeEditStateDefault()
     }
   }
 
@@ -76,6 +80,7 @@ class Map extends Component {
   }
 
   render () {
+    console.log('map is rendered')
     return (
       <div id='map' className={this.props.classType}></div>
     )
